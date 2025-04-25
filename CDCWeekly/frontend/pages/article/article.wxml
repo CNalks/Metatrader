@@ -1,0 +1,86 @@
+<!-- 文章详情页面 -->
+<view class="container">
+  <!-- 文章内容 -->
+  <block wx:if="{{article}}">
+    <!-- 文章标题 -->
+    <view class="article-header card">
+      <view class="card-content">
+        <view class="article-title">{{article.title}}</view>
+        <view class="article-meta">
+          <view class="article-authors" wx:if="{{article.authors && article.authors.length > 0}}">
+            作者：{{article.authors.join(', ')}}
+          </view>
+          <view class="article-source" wx:if="{{article.weekly}}">
+            来源：第 {{article.weekly.issueNumber}} 期 · {{article.weekly.publishDate}}
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 文章摘要 -->
+    <view class="article-section card">
+      <view class="card-content">
+        <view class="section-title">AI 生成摘要</view>
+        <view class="section-divider"></view>
+        <view class="article-summary">{{article.summary}}</view>
+      </view>
+    </view>
+    
+    <!-- 文章亮点 -->
+    <view class="article-section card" wx:if="{{article.highlights && article.highlights.length > 0}}">
+      <view class="card-content">
+        <view class="section-title">核心亮点</view>
+        <view class="section-divider"></view>
+        <view class="highlights-list">
+          <view class="highlight-item" wx:for="{{article.highlights}}" wx:key="index">
+            <view class="highlight-dot"></view>
+            <view class="highlight-text">{{item}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 原文摘要 -->
+    <view class="article-section card" wx:if="{{article.originalAbstract}}">
+      <view class="card-content">
+        <view class="section-title">原文摘要</view>
+        <view class="section-divider"></view>
+        <view class="article-original-abstract">{{article.originalAbstract}}</view>
+      </view>
+    </view>
+    
+    <!-- 原文链接 -->
+    <view class="article-section card">
+      <view class="card-content">
+        <view class="section-title">原文链接</view>
+        <view class="section-divider"></view>
+        <view class="article-link">
+          <text class="link-text" selectable="true">{{article.originalUrl}}</text>
+          <button class="btn btn-small" bindtap="copyLink">复制链接</button>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 操作按钮 -->
+    <view class="article-actions">
+      <button class="action-btn {{isFavorite ? 'is-favorite' : ''}}" bindtap="toggleFavorite">
+        <image class="action-icon" src="/images/{{isFavorite ? 'icon-favorite-active.png' : 'icon-favorite.png'}}"></image>
+        <text>{{isFavorite ? '已收藏' : '收藏'}}</text>
+      </button>
+      <button class="action-btn" open-type="share">
+        <image class="action-icon" src="/images/icon-share.png"></image>
+        <text>分享</text>
+      </button>
+    </view>
+  </block>
+  
+  <!-- 加载中 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading">加载中...</view>
+  </view>
+  
+  <!-- 加载失败 -->
+  <view class="error-container" wx:if="{{error}}">
+    <view class="error-message">{{errorMsg}}</view>
+    <button class="btn" bindtap="loadArticle">重新加载</button>
+  </view>

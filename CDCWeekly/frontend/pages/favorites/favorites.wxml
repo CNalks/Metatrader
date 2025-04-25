@@ -1,0 +1,25 @@
+<view class="favorites-container">
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{isEmpty}}">
+    <image class="empty-image" src="/images/empty-favorites.png" mode="aspectFit"></image>
+    <text class="empty-text">还没有收藏任何文章哦</text>
+    <button class="go-home-button" bindtap="goToHome">去首页看看</button>
+  </view>
+
+  <!-- 收藏列表 -->
+  <scroll-view scroll-y class="favorites-list" wx:else>
+    <view 
+      class="favorite-item"
+      wx:for="{{favoriteArticles}}"
+      wx:key="id"
+    >
+      <view class="item-content" data-id="{{item.id}}" bindtap="viewArticle">
+        <text class="article-title">{{item.title}}</text>
+        <text class="favorite-time">收藏于: {{item.favoriteTimeFormatted}}</text> <!-- 假设js中会格式化时间 -->
+      </view>
+      <view class="item-actions">
+        <button class="remove-button" size="mini" type="warn" data-id="{{item.id}}" catchtap="removeFavorite">移除</button>
+      </view>
+    </view>
+  </scroll-view>
+</view>

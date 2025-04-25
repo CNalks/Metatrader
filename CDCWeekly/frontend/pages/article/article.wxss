@@ -1,0 +1,154 @@
+/**
+ * 文章详情页样式
+ */
+
+/* 文章标题区域 */
+.article-header {
+  margin-bottom: 30rpx;
+}
+
+.article-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  line-height: 1.4;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.article-meta {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.5;
+}
+
+.article-authors {
+  margin-bottom: 8rpx;
+}
+
+/* 文章内容区域 */
+.article-section {
+  margin-bottom: 30rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #3A7BD5;
+  margin-bottom: 16rpx;
+}
+
+.section-divider {
+  height: 1px;
+  background-color: #eee;
+  margin-bottom: 20rpx;
+}
+
+.article-summary {
+  font-size: 28rpx;
+  line-height: 1.6;
+  color: #333;
+  text-align: justify;
+}
+
+.article-original-abstract {
+  font-size: 28rpx;
+  line-height: 1.6;
+  color: #666;
+  text-align: justify;
+  font-style: italic;
+}
+
+/* 亮点列表样式 */
+.highlights-list {
+  padding: 10rpx 0;
+}
+
+.highlight-item {
+  display: flex;
+  margin-bottom: 20rpx;
+}
+
+.highlight-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background-color: #3A7BD5;
+  margin-top: 14rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.highlight-text {
+  flex: 1;
+  font-size: 28rpx;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* 链接区域 */
+.article-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link-text {
+  flex: 1;
+  font-size: 26rpx;
+  color: #3A7BD5;
+  word-break: break-all;
+  margin-right: 20rpx;
+}
+
+/* 操作按钮 */
+.article-actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 30rpx 0 50rpx;
+}
+
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  line-height: normal;
+  color: #666;
+  font-size: 24rpx;
+}
+
+.action-btn::after {
+  border: none;
+}
+
+.action-icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin-bottom: 10rpx;
+}
+
+.is-favorite {
+  color: #3A7BD5;
+}
+
+/* 加载状态 */
+.loading-container, .error-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 100rpx 0;
+}
+
+.loading {
+  color: #999;
+  font-size: 28rpx;
+}
+
+.error-message {
+  color: #f5222d;
+  font-size: 28rpx;
+  margin-bottom: 30rpx;
+}

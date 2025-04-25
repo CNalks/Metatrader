@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/weekly/weekly",
+    "pages/article/article",
+    "pages/search/search", 
+    "pages/favorites/favorites" 
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "疾控周报速递",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/icon-weekly.png",
+        "selectedIconPath": "images/icon-weekly-active.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/search/search", 
+        "iconPath": "images/icon-search.png",
+        "selectedIconPath": "images/icon-search-active.png",
+        "text": "搜索"
+      },
+      {
+        "pagePath": "pages/favorites/favorites", 
+        "iconPath": "images/icon-favorite.png",
+        "selectedIconPath": "images/icon-favorite-active.png",
+        "text": "收藏"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

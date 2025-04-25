@@ -1,0 +1,75 @@
+<view class="search-container">
+  <!-- 搜索框 -->
+  <view class="search-bar">
+    <icon type="search" size="16" class="search-icon"></icon>
+    <input 
+      class="search-input" 
+      placeholder="搜索文章标题、摘要、亮点"
+      value="{{keyword}}"
+      confirm-type="search"
+      bindinput="inputKeyword"
+      bindconfirm="search"
+    />
+    <icon type="clear" size="16" class="clear-icon" wx:if="{{keyword}}" bindtap="clearKeyword"></icon>
+    <button class="search-button" bindtap="search">搜索</button>
+  </view>
+
+  <!-- 搜索历史 -->
+  <view class="search-history" wx:if="{{!searched && searchHistory.length > 0}}">
+    <view class="history-header">
+      <text class="history-title">搜索历史</text>
+      <icon type="delete" size="16" class="clear-history-icon" bindtap="clearHistory"></icon>
+    </view>
+    <view class="history-list">
+      <view 
+        class="history-item"
+        wx:for="{{searchHistory}}"
+        wx:key="*this"
+        data-keyword="{{item}}"
+        bindtap="useHistory"
+      >
+        {{item}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 搜索结果 -->
+  <view class="search-results" wx:if="{{searched}}">
+    <!-- 加载中 -->
+    <view class="loading-indicator" wx:if="{{loading}}">
+      <text>正在加载...</text>
+    </view>
+
+    <!-- 错误提示 -->
+    <view class="error-message" wx:elif="{{error}}">
+      <text>{{errorMsg}}</text>
+    </view>
+
+    <!-- 无结果 -->
+    <view class="no-results" wx:elif="{{articles.length === 0}}">
+      <text>没有找到相关文章</text>
+    </view>
+
+    <!-- 结果列表 -->
+    <view class="article-list" wx:else>
+      <view 
+        class="article-item"
+        wx:for="{{articles}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="viewArticle"
+      >
+        <text class="article-title">{{item.title}}</text>
+        <!-- 可以添加摘要或亮点预览 -->
+      </view>
+
+      <!-- 加载更多 -->
+      <view class="loading-more" wx:if="{{loadingMore}}">
+        <text>正在加载更多...</text>
+      </view>
+      <view class="no-more" wx:elif="{{!hasMore && articles.length > 0}}">
+        <text>没有更多了</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,84 @@
+/* pages/favorites/favorites.wxss */
+.favorites-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+/* 空状态 */
+.empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 100rpx; /* 避免底部遮挡 */
+}
+
+.empty-image {
+  width: 300rpx;
+  height: 300rpx;
+  margin-bottom: 30rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 40rpx;
+}
+
+.go-home-button {
+  background-color: #1aad19;
+  color: #fff;
+  border-radius: 40rpx;
+  padding: 15rpx 50rpx;
+  font-size: 30rpx;
+}
+
+/* 收藏列表 */
+.favorites-list {
+  flex: 1;
+  background-color: #fff;
+}
+
+.favorite-item {
+  display: flex;
+  align-items: center;
+  padding: 25rpx 20rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.favorite-item:last-child {
+  border-bottom: none;
+}
+
+.item-content {
+  flex: 1;
+  margin-right: 20rpx;
+  overflow: hidden; /* 防止内容溢出 */
+}
+
+.article-title {
+  font-size: 30rpx;
+  color: #333;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 10rpx;
+}
+
+.favorite-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.item-actions {
+  /* 按钮样式已在 WXML 中通过 size 和 type 设置 */
+}
+
+.remove-button {
+  /* 可以添加额外的样式 */
+}

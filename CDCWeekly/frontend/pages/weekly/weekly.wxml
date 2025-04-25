@@ -1,0 +1,54 @@
+<!-- 周报详情页面 -->
+<view class="container">
+  <!-- 周报信息 -->
+  <view class="weekly-header" wx:if="{{weekly}}">
+    <view class="weekly-title">第 {{weekly.issueNumber}} 期</view>
+    <view class="weekly-date">{{weekly.publishDate}}</view>
+    <view class="weekly-count">共 {{articles.length}} 篇文章</view>
+    <view class="back-button" bindtap="goBack">
+      <view class="back-arrow"></view>
+      <text>返回</text>
+    </view>
+  </view>
+  
+  <!-- 加载中 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading">
+      <view class="loading-icon"></view>
+      <view class="loading-text">加载中...</view>
+    </view>
+  </view>
+  
+  <!-- 错误提示 -->
+  <view class="error-container" wx:elif="{{error}}">
+    <view class="error-icon">!</view>
+    <view class="error-text">{{errorMsg || '加载失败，请重试'}}</view>
+    <view class="error-action" bindtap="loadWeeklyDetail">重新加载</view>
+  </view>
+  
+  <!-- 文章列表 -->
+  <view class="article-list" wx:elif="{{articles.length > 0}}">
+    <view 
+      class="article-item" 
+      wx:for="{{articles}}" 
+      wx:key="id" 
+      bindtap="viewArticle" 
+      data-id="{{item.id}}"
+    >
+      <view class="article-content">
+        <view class="article-title">{{item.title}}</view>
+        <view class="article-meta" wx:if="{{item.authors && item.authors.length > 0}}">
+          <view class="article-authors">作者：{{item.authors.join(', ')}}</view>
+        </view>
+      </view>
+      <view class="article-arrow"></view>
+    </view>
+  </view>
+  
+  <!-- 空状态 -->
+  <view class="empty-container" wx:elif="{{weekly && articles.length === 0}}">
+    <view class="empty-icon"></view>
+    <view class="empty-text">暂无文章数据</view>
+    <view class="empty-action" bindtap="loadWeeklyDetail">刷新</view>
+  </view>
+</view>

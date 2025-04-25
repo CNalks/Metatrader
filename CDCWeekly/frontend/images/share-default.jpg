@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="750" height="500" viewBox="0 0 750 500">
+  <rect width="750" height="500" fill="#3A7BD5" />
+  <text x="375" y="200" font-family="Arial" font-size="48" font-weight="bold" fill="white" text-anchor="middle">疾控周报速递</text>
+  <text x="375" y="280" font-family="Arial" font-size="28" fill="white" text-anchor="middle">权威解读 · 精华速递</text>
+  <text x="375" y="340" font-family="Arial" font-size="24" fill="rgba(255,255,255,0.8)" text-anchor="middle">China CDC Weekly 精选内容</text>
+</svg>

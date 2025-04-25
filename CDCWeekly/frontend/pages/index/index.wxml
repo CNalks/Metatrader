@@ -1,0 +1,69 @@
+<!-- 首页/周报列表页面 -->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="page-title">疾控周报速递</view>
+    <view class="page-subtitle">China CDC Weekly 精华内容</view>
+  </view>
+  
+  <!-- 加载中 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading">
+      <view class="loading-icon"></view>
+      <view class="loading-text">加载中...</view>
+    </view>
+  </view>
+  
+  <!-- 错误提示 -->
+  <view class="error-container" wx:elif="{{error}}">
+    <view class="error-icon">!</view>
+    <view class="error-text">{{errorMsg || '加载失败，请重试'}}</view>
+    <view class="error-action" bindtap="loadWeeklies">重新加载</view>
+  </view>
+  
+  <!-- 周报列表 -->
+  <view class="weekly-list" wx:elif="{{weeklies.length > 0}}">
+    <view 
+      class="weekly-item" 
+      wx:for="{{weeklies}}" 
+      wx:key="id" 
+      bindtap="viewWeekly" 
+      data-id="{{item.id}}"
+    >
+      <view class="weekly-content">
+        <view class="weekly-title">第 {{item.issueNumber}} 期</view>
+        <view class="weekly-meta">
+          <view class="weekly-date">{{item.publishDate}}</view>
+          <view class="weekly-count">{{item.articleCount}} 篇文章</view>
+        </view>
+      </view>
+      <view class="weekly-arrow"></view>
+    </view>
+    
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{loadingMore}}">
+      <view class="loading-icon small"></view>
+      <view class="loading-text small">加载更多...</view>
+    </view>
+    
+    <!-- 没有更多 -->
+    <view class="no-more" wx:if="{{!hasMore && weeklies.length > 0}}">
+      <view class="divider"></view>
+      <view class="no-more-text">没有更多内容</view>
+      <view class="divider"></view>
+    </view>
+  </view>
+  
+  <!-- 空状态 -->
+  <view class="empty-container" wx:else>
+    <view class="empty-icon"></view>
+    <view class="empty-text">暂无周报数据</view>
+    <view class="empty-action" bindtap="loadWeeklies">刷新</view>
+  </view>
+  
+  <!-- 下拉刷新提示 -->
+  <view class="refresh-tip" wx:if="{{refreshing}}">
+    <view class="loading-icon small"></view>
+    <view class="loading-text small">正在刷新...</view>
+  </view>
+</view>

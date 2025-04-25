@@ -1,0 +1,132 @@
+/* pages/search/search.wxss */
+.search-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+/* 搜索框 */
+.search-bar {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #fff;
+  border-bottom: 1rpx solid #eee;
+}
+
+.search-icon {
+  margin-right: 10rpx;
+  color: #999;
+}
+
+.search-input {
+  flex: 1;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  background-color: #f4f4f4;
+  border-radius: 30rpx;
+  padding: 0 20rpx;
+}
+
+.clear-icon {
+  margin-left: 10rpx;
+  color: #ccc;
+}
+
+.search-button {
+  margin-left: 20rpx;
+  padding: 0 30rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  background-color: #1aad19;
+  color: #fff;
+  border-radius: 30rpx;
+  border: none;
+}
+
+/* 搜索历史 */
+.search-history {
+  padding: 20rpx;
+  background-color: #fff;
+  margin-top: 20rpx;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.history-title {
+  font-size: 30rpx;
+  color: #333;
+}
+
+.clear-history-icon {
+  color: #999;
+}
+
+.history-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.history-item {
+  background-color: #f4f4f4;
+  color: #666;
+  font-size: 26rpx;
+  padding: 10rpx 20rpx;
+  margin: 0 15rpx 15rpx 0;
+  border-radius: 20rpx;
+}
+
+/* 搜索结果 */
+.search-results {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 20rpx;
+}
+
+.loading-indicator,
+.error-message,
+.no-results {
+  text-align: center;
+  padding: 40rpx;
+  color: #999;
+  font-size: 28rpx;
+}
+
+.article-list {
+  background-color: #fff;
+}
+
+.article-item {
+  padding: 25rpx 20rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.article-item:last-child {
+  border-bottom: none;
+}
+
+.article-title {
+  font-size: 30rpx;
+  color: #333;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.loading-more,
+.no-more {
+  text-align: center;
+  padding: 20rpx;
+  color: #999;
+  font-size: 26rpx;
+}
