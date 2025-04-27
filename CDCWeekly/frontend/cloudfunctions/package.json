@@ -1,0 +1,20 @@
+{
+  "name": "cloudfunctions",
+  "version": "1.0.0",
+  "description": "WeChat Cloud Functions for CDCWeekly",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "wx-server-sdk": "^2.6.3",
+    "node-imap": "^0.9.6",
+    "mailparser": "^3.6.5",
+    "axios": "^1.4.0", 
+    "cheerio": "^1.0.0-rc.12",
+    "openai": "^3.3.0" 
+  }
+}

@@ -3,7 +3,7 @@
  */
 
 // 引入请求工具
-const { get } = require('../../utils/request');
+// const { get } = require('../../utils/request'); // 使用云函数替代
 
 Page({
   /**
@@ -55,10 +55,14 @@ Page({
       errorMsg: ''
     });
 
-    // 请求周报详情
-    get(`/weeklies/${this.weeklyId}`)
+    // 请求周报详情 (使用云函数)
+    wx.cloud.callFunction({
+      name: 'getWeeklyDetail',
+      data: { id: this.weeklyId }
+    })
       .then(res => {
-        const { weekly, articles } = res;
+        if (res.result && res.result.success) {
+          const { weekly, articles } = res.result.data;
         
         // 格式化日期
         const formattedWeekly = {
@@ -72,21 +76,25 @@ Page({
           loading: false
         });
 
-        // 设置页面标题
-        wx.setNavigationBarTitle({
-          title: `第 ${formattedWeekly.issueNumber} 期`
-        });
+          // 设置页面标题
+          wx.setNavigationBarTitle({
+            title: `第 ${formattedWeekly.issueNumber} 期`
+          });
 
-        // 停止下拉刷新动画
-        if (refresh) {
-          wx.stopPullDownRefresh();
+          // 停止下拉刷新动画
+          if (refresh) {
+            wx.stopPullDownRefresh();
+          }
+        } else {
+          throw new Error(res.result.message || '加载失败');
         }
       })
       .catch(err => {
+        console.error('加载周报详情失败:', err);
         this.setData({
           loading: false,
           error: true,
-          errorMsg: err.message || '加载失败，请重试'
+          errorMsg: err.message || err.errMsg || '加载失败，请重试'
         });
         
         // 停止下拉刷新动画

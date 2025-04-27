@@ -3,7 +3,7 @@
  */
 
 // 引入请求工具
-const { get } = require('../../utils/request');
+// const { get } = require('../../utils/request'); // 使用云函数替代
 
 Page({
   /**
@@ -62,22 +62,30 @@ Page({
       errorMsg: ''
     });
 
-    // 请求周报列表
-    get('/weeklies', { page, limit })
+    // 请求周报列表 (使用云函数)
+    wx.cloud.callFunction({
+      name: 'getWeeklyList',
+      data: { page, limit }
+    })
       .then(res => {
-        const { data, total } = res;
-        // 格式化日期
-        const formattedData = data.map(item => ({
-          ...item,
-          publishDate: this.formatDate(item.publishDate)
-        }));
+        if (res.result && res.result.success) {
+          const { list, pagination } = res.result.data;
+          const total = pagination.total;
+          // 格式化日期
+          const formattedData = list.map(item => ({
+            ...item,
+            publishDate: this.formatDate(item.publishDate)
+          }));
 
-        this.setData({
-          weeklies: refresh ? formattedData : [...this.data.weeklies, ...formattedData],
-          loading: false,
-          refreshing: false,
-          hasMore: this.data.page * this.data.limit < total
-        });
+          this.setData({
+            weeklies: refresh ? formattedData : [...this.data.weeklies, ...formattedData],
+            loading: false,
+            refreshing: false,
+            hasMore: this.data.page * this.data.limit < total
+          });
+        } else {
+          throw new Error(res.result.message || '加载失败');
+        }
 
         // 停止下拉刷新动画
         if (refresh) {
@@ -85,13 +93,14 @@ Page({
         }
       })
       .catch(err => {
+        console.error('加载周报列表失败:', err);
         this.setData({
           loading: false,
           refreshing: false,
           error: true,
-          errorMsg: err.message || '加载失败，请重试'
+          errorMsg: err.message || err.errMsg || '加载失败，请重试'
         });
-        
+
         // 停止下拉刷新动画
         if (refresh) {
           wx.stopPullDownRefresh();

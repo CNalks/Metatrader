@@ -3,7 +3,7 @@
  */
 
 // 引入请求工具
-const { get } = require('../../utils/request');
+// const { get } = require('../../utils/request'); // 使用云函数替代
 
 Page({
   /**
@@ -47,33 +47,32 @@ Page({
       errorMsg: ''
     });
 
-    // 请求文章详情
-    get(`/articles/${this.articleId}`)
+    // 请求文章详情 (使用云函数)
+    wx.cloud.callFunction({
+      name: 'getArticleDetail',
+      data: { id: this.articleId }
+    })
       .then(res => {
-        if (res.success && res.data) {
+        if (res.result && res.result.success && res.result.data) {
           // 更新文章数据
           this.setData({
-            article: res.data,
+            article: res.result.data,
             loading: false
           });
-          
+
           // 检查收藏状态
           this.checkFavoriteStatus();
         } else {
-          this.setData({
-            loading: false,
-            error: true,
-            errorMsg: res.message || '获取文章失败'
-          });
+          throw new Error(res.result.message || '获取文章失败');
         }
       })
       .catch(err => {
+        console.error('加载文章失败:', err);
         this.setData({
           loading: false,
           error: true,
-          errorMsg: '网络请求失败，请稍后重试'
+          errorMsg: err.message || err.errMsg || '加载失败，请重试'
         });
-        console.error('加载文章失败', err);
       });
   },
 

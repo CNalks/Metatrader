@@ -3,7 +3,7 @@
  */
 
 // 引入请求工具
-const { get } = require('../../utils/request');
+// const { get } = require('../../utils/request'); // 使用云函数替代
 
 Page({
   /**
@@ -87,24 +87,33 @@ Page({
   fetchSearchResults: function () {
     const { keyword, page, limit } = this.data;
 
-    get('/search', { keyword, page, limit })
+    wx.cloud.callFunction({
+      name: 'searchArticles',
+      data: { keyword, page, limit }
+    })
       .then(res => {
-        const { data, total } = res;
-        
-        this.setData({
-          articles: page === 1 ? data : [...this.data.articles, ...data],
-          loading: false,
-          loadingMore: false,
-          hasMore: this.data.articles.length + data.length < total
-        });
+        if (res.result && res.result.success) {
+          const { list, pagination } = res.result.data;
+          const total = pagination.total;
+
+          this.setData({
+            articles: page === 1 ? list : [...this.data.articles, ...list],
+            loading: false,
+            loadingMore: false,
+            hasMore: (this.data.articles.length + list.length) < total
+          });
+        } else {
+          throw new Error(res.result.message || '搜索失败');
+        }
       })
       .catch(err => {
         this.setData({
           loading: false,
           loadingMore: false,
           error: true,
-          errorMsg: err.message || '搜索失败，请重试'
+          errorMsg: err.message || err.errMsg || '搜索失败，请重试'
         });
+        console.error('搜索失败:', err);
       });
   },
 

@@ -3,20 +3,33 @@
  */
 
 App({
+  /**
+   * 小程序初始化时执行
+   */
+  onLaunch: function () {
+    // 初始化云开发环境
+    if (!wx.cloud) {
+      console.error('请使用 2.2.3 或以上的基础库以使用云能力');
+    } else {
+      wx.cloud.init({
+        // env 参数说明：
+        //   env 参数决定接下来小程序发起的云开发调用（wx.cloud.xxx）会默认请求到哪个云环境的资源
+        //   此处请填入环境 ID, 环境 ID 可打开云控制台查看
+        //   如不填则使用默认环境（第一个创建的环境）
+        // env: 'YOUR_ENV_ID', 
+        traceUser: true, // 是否要捕捉每个用户的访问记录。设置为true，用户可在管理端看到用户访问记录
+      });
+    }
+
+    // 从本地存储加载收藏数据
+    this.loadFavorites();
+  },
   // 全局数据
   globalData: {
     // API基础URL
     apiBaseUrl: 'https://api.example.com/api/v1', // 实际部署时需要替换为真实API地址
     // 用户收藏数据
     favorites: []
-  },
-
-  /**
-   * 小程序启动时执行
-   */
-  onLaunch: function() {
-    // 从本地存储加载收藏数据
-    this.loadFavorites();
   },
 
   /**
